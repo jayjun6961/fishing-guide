@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎣 낚시 게임 완전 가이드 — GGO PLAY</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#07040e; --bg2:#0e0820; --bg3:#130d24;
+    --purple:#7c3aed; --purple2:#a855f7; --purple3:#c084fc;
+    --cyan:#22d3ee; --gold:#fbbf24; --green:#34d399;
+    --red:#ef4444; --orange:#f97316;
+    --text:#e2e8f0; --dim:#64748b; --sub:#94a3b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;}
+
+  /* ── 헤더 ── */
+  .hero{background:linear-gradient(135deg,#0e0820,#1a0a3a,#07040e);padding:48px 20px 32px;text-align:center;border-bottom:1px solid rgba(124,58,237,.3);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(124,58,237,.18),transparent);}
+  .hero-badge{display:inline-block;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.3);color:var(--cyan);font-family:'Orbitron',sans-serif;font-size:10px;padding:4px 14px;border-radius:20px;letter-spacing:2px;margin-bottom:16px;}
+  .hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(24px,5vw,42px);font-weight:900;background:linear-gradient(135deg,#fff,#c084fc,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+  .hero-sub{font-size:14px;color:var(--sub);line-height:1.8;}
+  .hero-emoji{font-size:56px;margin-bottom:16px;display:block;filter:drop-shadow(0 0 20px rgba(34,211,238,.4));}
+
+  /* ── 레이아웃 ── */
+  .container{max-width:900px;margin:0 auto;padding:24px 16px 60px;}
+
+  /* ── 탐색 사이드바 (TOC) ── */
+  .toc{background:rgba(19,13,36,.9);border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:20px;margin-bottom:32px;display:flex;flex-wrap:wrap;gap:8px;}
+  .toc-title{width:100%;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--purple3);margin-bottom:4px;letter-spacing:1px;}
+  .toc-btn{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:var(--sub);padding:6px 14px;border-radius:20px;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:.2s;text-decoration:none;}
+  .toc-btn:hover,.toc-btn.active{background:rgba(124,58,237,.25);border-color:rgba(124,58,237,.6);color:var(--purple3);}
+
+  /* ── 섹션 ── */
+  .section{margin-bottom:40px;scroll-margin-top:24px;}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(124,58,237,.2);}
+  .section-icon{font-size:28px;}
+  .section-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:#fff;}
+  .section-tag{background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.3);color:var(--purple3);font-size:10px;padding:2px 10px;border-radius:10px;font-family:'Orbitron',sans-serif;}
+
+  /* ── 카드 ── */
+  .card{background:rgba(19,13,36,.8);border:1px solid rgba(124,58,237,.15);border-radius:14px;padding:18px;margin-bottom:12px;transition:.2s;}
+  .card:hover{border-color:rgba(124,58,237,.35);}
+  .card-title{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .card-body{font-size:13px;color:var(--sub);line-height:1.8;}
+
+  /* ── 그리드 카드 ── */
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+
+  /* ── 스텝 (순서 있는 가이드) ── */
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+  .step:last-child{border-bottom:none;}
+  .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .step-content h4{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:4px;}
+  .step-content p{font-size:13px;color:var(--sub);line-height:1.7;}
+
+  /* ── 배지/칩 ── */
+  .badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700;font-family:'Orbitron',sans-serif;}
+  .badge-common{background:rgba(148,163,184,.15);color:#94a3b8;border:1px solid rgba(148,163,184,.3);}
+  .badge-rare{background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3);}
+  .badge-epic{background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.3);}
+  .badge-legend{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.3);}
+  .badge-myth{background:rgba(249,115,22,.12);color:#f97316;border:1px solid rgba(249,115,22,.3);}
+  .badge-legendary{background:rgba(226,196,255,.12);color:#e2c4ff;border:1px solid rgba(226,196,255,.3);}
+  .badge-transcend{background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.4);}
+
+  /* ── 테이블 ── */
+  .gtable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  .gtable th{background:rgba(124,58,237,.15);color:var(--purple3);font-family:'Orbitron',sans-serif;font-size:11px;padding:10px 12px;text-align:left;border-bottom:1px solid rgba(124,58,237,.2);}
+  .gtable td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--sub);vertical-align:top;}
+  .gtable tr:last-child td{border-bottom:none;}
+  .gtable tr:hover td{background:rgba(124,58,237,.04);}
+
+  /* ── 팁 박스 ── */
+  .tip{background:rgba(34,211,238,.06);border-left:3px solid var(--cyan);border-radius:0 12px 12px 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--sub);line-height:1.7;}
+  .tip strong{color:var(--cyan);}
+  .warn{background:rgba(251,191,36,.06);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--sub);line-height:1.7;}
+  .warn strong{color:var(--gold);}
+  .success{background:rgba(52,211,153,.06);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--sub);line-height:1.7;}
+  .success strong{color:var(--green);}
+
+  /* ── 상태표시 ── */
+  .highlight{color:var(--gold);font-weight:700;}
+  .hl-cyan{color:var(--cyan);font-weight:700;}
+  .hl-green{color:var(--green);font-weight:700;}
+  .hl-red{color:var(--red);font-weight:700;}
+  .hl-purple{color:var(--purple3);font-weight:700;}
+
+  /* ── 게이지 시각화 ── */
+  .gauge-demo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;height:20px;position:relative;overflow:hidden;margin:8px 0;}
+  .gauge-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);}
+  .gauge-perfect{position:absolute;top:0;height:100%;background:rgba(34,211,238,.5);border:1px solid var(--cyan);}
+  .gauge-label{font-size:11px;color:var(--dim);text-align:center;margin-top:4px;font-family:'Orbitron',sans-serif;}
+
+  /* ── 맵 테이블 ── */
+  .map-card{background:rgba(19,13,36,.8);border:1px solid rgba(124,58,237,.15);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;}
+  .map-card .map-name{font-size:13px;font-weight:700;color:#e2e8f0;}
+  .map-card .map-unlock{font-size:11px;color:var(--gold);font-family:'Orbitron',sans-serif;}
+  .map-card .map-desc{font-size:11px;color:var(--dim);}
+  .map-card .map-grades{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
+
+  /* ── 반응형 ── */
+  @media(max-width:600px){
+    .grid-2,.grid-3{grid-template-columns:1fr;}
+    .section-title{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="hero">
+  <span class="hero-emoji">🎣</span>
+  <div class="hero-badge">FISHING GUIDE</div>
+  <h1 class="hero-title">낚시 게임 완전 가이드</h1>
+  <p class="hero-sub">GGO PLAY 낚시 콘텐츠의 모든 것을 한 눈에<br>처음 시작하는 분도 쉽게 따라할 수 있습니다</p>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">📌 목차</div>
+    <a class="toc-btn" href="#basic">⚡ 기본 시작</a>
+    <a class="toc-btn" href="#currency">💰 재화 시스템</a>
+    <a class="toc-btn" href="#gauge">🎯 낚시 게이지</a>
+    <a class="toc-btn" href="#maps">🗺️ 낚시터</a>
+    <a class="toc-btn" href="#grade">⭐ 물고기 등급</a>
+    <a class="toc-btn" href="#shop">🏪 낚시 상점</a>
+    <a class="toc-btn" href="#storage">📦 보관함</a>
+    <a class="toc-btn" href="#boss">⚔️ 보스</a>
+    <a class="toc-btn" href="#dex">📖 도감</a>
+    <a class="toc-btn" href="#rank">🏆 순위</a>
+    <a class="toc-btn" href="#quest">📋 퀘스트</a>
+    <a class="toc-btn" href="#tips">💡 고수 팁</a>
+  </nav>
+
+  <!-- ① 기본 시작 -->
+  <section class="section" id="basic">
+    <div class="section-header">
+      <span class="section-icon">⚡</span>
+      <h2 class="section-title">기본 시작하기</h2>
+      <span class="section-tag">BEGINNER</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎮 낚시 게임이란?</div>
+      <div class="card-body">
+        낚시 게임은 <span class="highlight">게이지 타이밍</span>으로 물고기를 낚는 미니게임입니다.<br>
+        낚은 물고기를 <span class="hl-green">판매(GP 획득)</span>하거나 <span class="hl-cyan">보관함에 보관</span>할 수 있습니다.<br>
+        더 희귀한 물고기를 낚으려면 더 좋은 낚시터와 장비가 필요합니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 낚시 흐름</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>🗺️ 낚시터 선택</h4>
+            <p>하단 <strong>맵</strong> 탭에서 원하는 낚시터를 선택합니다. 처음엔 <span class="highlight">강가 낚시터</span>에서 시작하세요. (잠금 해제 FP 필요)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>🎣 낚싯대 던지기</h4>
+            <p><strong>[낚싯대 던지기]</strong> 버튼을 눌러 낚시를 시작합니다. 잠시 후 게이지가 나타납니다.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>🎯 게이지 타이밍</h4>
+            <p>움직이는 바가 <span class="hl-cyan">파란 퍼펙트 구간</span>에 들어올 때 버튼을 눌러 클릭하세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>🐟 결과 선택</h4>
+            <p>물고기를 낚으면 <span class="hl-green">보관</span> 또는 <span class="highlight">판매</span>를 선택합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>💡 초보자 추천 순서</strong><br>
+      강가 낚시터 → FP 모으기 → 상점에서 낚시대 업그레이드 → 호수 낚시터 언락 (FP 100) → 반복
+    </div>
+  </section>
+
+  <!-- ② 재화 시스템 -->
+  <section class="section" id="currency">
+    <div class="section-header">
+      <span class="section-icon">💰</span>
+      <h2 class="section-title">재화 시스템</h2>
+      <span class="section-tag">CURRENCY</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🔵 FP (낚시 포인트)</div>
+        <div class="card-body">
+          낚시 게임 전용 포인트입니다.<br><br>
+          <strong>획득 방법</strong>
+          <ul style="margin-top:8px;padding-left:16px;line-height:2;">
+            <li>물고기 낚기 (등급별 차등)</li>
+            <li>퍼펙트 캐치 시 보너스</li>
+            <li>보스 처치</li>
+            <li>도감 완성 보상</li>
+            <li>순위 보상 (25일 주기)</li>
+            <li>일일 퀘스트 완료</li>
+          </ul>
+          <br>
+          <strong>사용처</strong>
+          <ul style="margin-top:8px;padding-left:16px;line-height:2;">
+            <li>낚시터 잠금 해제</li>
+            <li>낚시대 구매</li>
+            <li>미끼 구매</li>
+            <li>아이템 구매</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🟡 GP (골드 포인트)</div>
+        <div class="card-body">
+          GGO PLAY 공용 재화입니다.<br><br>
+          <strong>획득 방법</strong>
+          <ul style="margin-top:8px;padding-left:16px;line-height:2;">
+            <li>물고기 판매</li>
+            <li>보관함 전체 판매</li>
+            <li>순위 보상</li>
+            <li>일일 퀘스트 보상</li>
+          </ul>
+          <br>
+          <strong>물고기 판매가</strong>
+          <ul style="margin-top:8px;padding-left:16px;line-height:2;">
+            <li>등급이 높을수록 GP 높음</li>
+            <li>퍼펙트 캐치 시 <span class="hl-green">+20% 보너스</span></li>
+            <li>낚시터별 <span class="highlight">가격 배율</span> 적용</li>
+          </ul>
+          <br>
+          <strong>순위 보상 (25일 주기)</strong>
+          <div style="margin-top:6px;line-height:2;font-size:12px;">
+            🥇 1위 → 1,000 GP &nbsp;|&nbsp; 🥈 2위 → 700 GP<br>
+            🥉 3위 → 500 GP &nbsp;|&nbsp; 4~10위 → 300 GP<br>
+            11~30위 → 200 GP &nbsp;|&nbsp; 31위~ → 100 GP
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>⚠️ 알아두세요</strong><br>
+      FP는 낚시 게임 전용이며 다른 콘텐츠에서는 사용할 수 없습니다. GP는 GGO PLAY 전체에서 공유됩니다.
+    </div>
+  </section>
+
+  <!-- ③ 게이지 시스템 -->
+  <section class="section" id="gauge">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <h2 class="section-title">낚시 게이지 시스템</h2>
+      <span class="section-tag">CORE MECHANIC</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 게이지 구조</div>
+      <div class="card-body">
+        낚싯대를 던지면 아래와 같은 게이지가 나타납니다.<br><br>
+        <div class="gauge-demo">
+          <div class="gauge-fill" style="width:100%;opacity:0.15;"></div>
+          <div class="gauge-perfect" style="left:35%;width:20%;"></div>
+        </div>
+        <div class="gauge-label">← 게이지 전체 범위 / 파란 구간 = 퍼펙트 존 →</div>
+        <br>
+        <table class="gtable">
+          <tr><th>구간</th><th>설명</th><th>결과</th></tr>
+          <tr><td>🟦 <span style="color:var(--cyan)">퍼펙트 존</span></td><td>파란 강조 구간</td><td><span class="hl-green">퍼펙트 캐치!</span> GP +20%, FP 보너스</td></tr>
+          <tr><td>⬜ 일반 구간</td><td>퍼펙트 존 외 구간</td><td>일반 캐치 (보너스 없음)</td></tr>
+          <tr><td>❌ 실패</td><td>타이밍 놓침</td><td>물고기 도망감</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🎣 낚시대별 퍼펙트 구간</div>
+        <div class="card-body">
+          낚시대 등급이 높을수록 퍼펙트 구간이 넓어집니다.
+          <table class="gtable" style="margin-top:10px;">
+            <tr><th>낚시대</th><th>퍼펙트 존</th></tr>
+            <tr><td>일반</td><td>4%</td></tr>
+            <tr><td>희귀</td><td>8%</td></tr>
+            <tr><td>레어</td><td>13%</td></tr>
+            <tr><td>에픽</td><td>19%</td></tr>
+            <tr><td>전설</td><td>26%</td></tr>
+            <tr><td>레전더리</td><td>35%</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ 내구도 시스템</div>
+        <div class="card-body">
+          낚시대는 사용할수록 <span class="hl-red">내구도가 감소</span>합니다.<br><br>
+          <table class="gtable">
+            <tr><th>낚시대</th><th>내구도</th></tr>
+            <tr><td>일반</td><td>∞ (무한)</td></tr>
+            <tr><td>희귀</td><td>100</td></tr>
+            <tr><td>레어</td><td>90</td></tr>
+            <tr><td>에픽</td><td>80</td></tr>
+            <tr><td>전설</td><td>70</td></tr>
+            <tr><td>레전더리</td><td>60</td></tr>
+          </table>
+          <div style="margin-top:8px;font-size:12px;color:var(--red);">
+            ⚠️ 내구도가 소진되면 일반 낚시대로 자동 교체됩니다!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>💡 퍼펙트 캐치 팁</strong><br>
+      게이지 바의 이동 속도에 집중하세요. 퍼펙트 존이 접근할 때 미리 손을 올려두고 딱 들어오는 순간 클릭하면 성공률이 올라갑니다.
+    </div>
+  </section>
+
+  <!-- ④ 낚시터 -->
+  <section class="section" id="maps">
+    <div class="section-header">
+      <span class="section-icon">🗺️</span>
+      <h2 class="section-title">낚시터 (맵)</h2>
+      <span class="section-tag">MAPS</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="margin-bottom:4px;">
+        낚시터마다 <span class="highlight">출현하는 물고기 등급</span>과 <span class="hl-cyan">GP 배율</span>이 다릅니다.<br>
+        FP를 모아 더 높은 낚시터를 잠금 해제하세요.
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="map-card">
+        <div class="map-name">🏞️ 강가 낚시터</div>
+        <div class="map-unlock">🔓 시작부터 개방</div>
+        <div class="map-desc">초보자용 조용한 강가</div>
+        <div class="map-grades">
+          <span class="badge badge-common">일반 80%</span>
+          <span class="badge badge-rare">희귀 20%</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🏔️ 호수 낚시터</div>
+        <div class="map-unlock">🔓 FP 100</div>
+        <div class="map-desc">레어 물고기 첫 출현</div>
+        <div class="map-grades">
+          <span class="badge badge-common">일반</span>
+          <span class="badge badge-rare">희귀</span>
+          <span class="badge badge-epic" style="background:rgba(96,165,250,.12);color:#60a5fa;border-color:rgba(96,165,250,.3);">레어</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🌊 바다 낚시터</div>
+        <div class="map-unlock">🔓 FP 300</div>
+        <div class="map-desc">에픽 물고기 출현</div>
+        <div class="map-grades">
+          <span class="badge badge-rare">희귀</span>
+          <span class="badge badge-epic">에픽</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🌑 심해 낚시터</div>
+        <div class="map-unlock">🔓 FP 500</div>
+        <div class="map-desc">전설 물고기 출현</div>
+        <div class="map-grades">
+          <span class="badge badge-epic">에픽</span>
+          <span class="badge badge-legend">전설</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🌋 화산 낚시터</div>
+        <div class="map-unlock">🔓 FP 700</div>
+        <div class="map-desc">신화 물고기 출현</div>
+        <div class="map-grades">
+          <span class="badge badge-legend">전설</span>
+          <span class="badge badge-myth">신화</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">☁️ 하늘 낚시터</div>
+        <div class="map-unlock">🔓 FP 1,000</div>
+        <div class="map-desc">신화 고확률 출현</div>
+        <div class="map-grades">
+          <span class="badge badge-epic">에픽</span>
+          <span class="badge badge-myth">신화</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🌌 우주 낚시터</div>
+        <div class="map-unlock">🔓 FP 3,000</div>
+        <div class="map-desc">레전더리 물고기 출현!</div>
+        <div class="map-grades">
+          <span class="badge badge-myth">신화</span>
+          <span class="badge badge-legendary">레전더리</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">🌠 은하수 낚시터</div>
+        <div class="map-unlock">🔓 FP 5,000</div>
+        <div class="map-desc">초월 물고기 등장</div>
+        <div class="map-grades">
+          <span class="badge badge-legendary">레전더리</span>
+          <span class="badge badge-transcend">초월</span>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="map-name">♾️ 무한 낚시터</div>
+        <div class="map-unlock">🔓 FP 10,000</div>
+        <div class="map-desc">초월 고확률 최종 낚시터</div>
+        <div class="map-grades">
+          <span class="badge badge-legendary">레전더리</span>
+          <span class="badge badge-transcend">초월 고확률</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="success">
+      <strong>✅ 전략 포인트</strong><br>
+      낚시터마다 <strong>GP 배율</strong>이 다릅니다. 우주 낚시터(×1.8), 은하수(×2.0), 무한(×2.5)처럼 상위 낚시터일수록 같은 물고기도 더 높은 GP로 판매됩니다.
+    </div>
+  </section>
+
+  <!-- ⑤ 물고기 등급 -->
+  <section class="section" id="grade">
+    <div class="section-header">
+      <span class="section-icon">⭐</span>
+      <h2 class="section-title">물고기 등급 시스템</h2>
+      <span class="section-tag">GRADES</span>
+    </div>
+
+    <table class="gtable">
+      <tr><th>등급</th><th>설명</th><th>출현 낚시터</th><th>GP 가치</th></tr>
+      <tr>
+        <td><span class="badge badge-common">일반</span></td>
+        <td>가장 흔한 물고기</td><td>강가~</td><td>낮음</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-rare">희귀</span></td>
+        <td>조금 특별한 물고기</td><td>강가~</td><td>보통</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-epic" style="background:rgba(96,165,250,.12);color:#60a5fa;border-color:rgba(96,165,250,.3);">레어</span></td>
+        <td>레어 물고기</td><td>호수~</td><td>높음</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-epic">에픽</span></td>
+        <td>희귀한 에픽 물고기</td><td>바다~</td><td>매우 높음</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-legend">전설</span></td>
+        <td>전설의 물고기</td><td>심해~</td><td>아주 높음</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-myth">신화</span></td>
+        <td>신화급 물고기</td><td>화산~</td><td>극상</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-legendary">레전더리</span></td>
+        <td>전설을 넘어선 물고기</td><td>우주~</td><td>초고가</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-transcend">초월</span></td>
+        <td>현실을 초월한 존재</td><td>은하수~</td><td>최고가</td>
+      </tr>
+    </table>
+
+    <div class="tip">
+      <strong>💡 퍼펙트 보너스</strong><br>
+      퍼펙트 캐치 시 물고기 판매가에 <span class="hl-green">+20% 보너스</span>가 붙습니다. 고가 물고기를 퍼펙트로 낚으면 수익이 크게 오릅니다.
+    </div>
+  </section>
+
+  <!-- ⑥ 낚시 상점 -->
+  <section class="section" id="shop">
+    <div class="section-header">
+      <span class="section-icon">🏪</span>
+      <h2 class="section-title">낚시 상점</h2>
+      <span class="section-tag">SHOP</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        낚시 상점에서는 <span class="hl-cyan">FP</span>를 사용하여 낚시대, 미끼, 아이템을 구매합니다.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🎣 낚시대</div>
+        <div class="card-body">
+          <table class="gtable">
+            <tr><th>낚시대</th><th>퍼펙트 존</th><th>가격</th></tr>
+            <tr><td>일반</td><td>4%</td><td>무료</td></tr>
+            <tr><td>희귀</td><td>8%</td><td>1,000 FP</td></tr>
+            <tr><td>레어</td><td>13%</td><td>5,000 FP</td></tr>
+            <tr><td>에픽</td><td>19%</td><td>10,000 FP</td></tr>
+            <tr><td>전설</td><td>26%</td><td>50,000 FP</td></tr>
+            <tr><td>레전더리</td><td>35%</td><td>200,000 FP</td></tr>
+          </table>
+          <div style="margin-top:8px;font-size:12px;color:var(--dim);">
+            * 등급 보너스: 상위 등급 물고기 출현 확률 증가<br>
+            * 내구도 소진 시 일반 낚시대로 자동 교체
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🪱 미끼 & 🎒 아이템</div>
+        <div class="card-body">
+          <strong>미끼</strong><br>
+          물고기 출현 확률과 등급에 영향을 줍니다.<br>
+          FP로 구매 후 장착하면 자동 적용됩니다.<br><br>
+          <strong>아이템</strong><br>
+          낚시를 더 유리하게 만드는 특수 효과 아이템입니다.<br>
+          상점에서 구매 후 장착하세요.
+          <div class="tip" style="margin-top:10px;">
+            <strong>💡</strong> 상점 탭에서 현재 장착 중인 낚시대·미끼·아이템 상태를 확인할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑦ 보관함 -->
+  <section class="section" id="storage">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <h2 class="section-title">보관함</h2>
+      <span class="section-tag">STORAGE</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📦 보관함이란?</div>
+        <div class="card-body">
+          낚은 물고기를 판매하지 않고 <strong>저장해두는 공간</strong>입니다.<br><br>
+          • 최대 <span class="highlight">100마리</span> 보관 가능<br>
+          • 나중에 한 번에 전체 판매 가능<br>
+          • 도감 완성에 활용<br>
+          • 물고기 종류·수량 확인 가능
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🪙 전체 판매</div>
+        <div class="card-body">
+          보관함 상단의 <span class="hl-gold">[전체 판매]</span> 버튼으로 보관 중인 물고기를 한 번에 판매합니다.<br><br>
+          <div class="warn" style="margin:0;">
+            <strong>⚠️</strong> 보관함이 꽉 차면 새 물고기를 보관할 수 없습니다. 주기적으로 판매하거나 정리하세요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑧ 보스 -->
+  <section class="section" id="boss">
+    <div class="section-header">
+      <span class="section-icon">⚔️</span>
+      <h2 class="section-title">보스 도전</h2>
+      <span class="section-tag">BOSS</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        특정 낚시터를 해금하면 <span class="hl-red">보스 물고기</span>에게 도전할 수 있습니다.<br>
+        보스를 처치하면 <span class="highlight">대량의 FP</span>를 획득할 수 있습니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚔️ 보스 목록</div>
+      <table class="gtable">
+        <tr><th>보스</th><th>HP</th><th>도전 조건</th><th>보상 FP</th><th>패턴</th></tr>
+        <tr>
+          <td>🦑 심해 괴어</td><td>500</td><td>바다 낚시터 해금</td>
+          <td class="highlight">10,000</td><td>퍼펙트 구간 점점 좁아짐</td>
+        </tr>
+        <tr>
+          <td>🦈 폭풍 상어</td><td>700</td><td>심해 낚시터 해금</td>
+          <td class="highlight">30,000</td><td>속도 랜덤 급변</td>
+        </tr>
+        <tr>
+          <td>👻 환영 해파리</td><td>900</td><td>화산 낚시터 해금</td>
+          <td class="highlight">50,000</td><td>가짜 퍼펙트 구간 함정</td>
+        </tr>
+        <tr>
+          <td>🔥 화염 장어</td><td>1,200</td><td>하늘 낚시터 해금</td>
+          <td class="highlight">70,000</td><td>실패할수록 난이도 상승</td>
+        </tr>
+        <tr>
+          <td>🐢 빙결 거북</td><td>2,000</td><td>우주 낚시터 해금</td>
+          <td class="highlight">100,000</td><td>무적 구간 + 좁은 퍼펙트</td>
+        </tr>
+        <tr>
+          <td>🐠 번개 니모</td><td>3,000</td><td>은하수 낚시터 해금</td>
+          <td class="highlight">300,000</td><td>초고속 + 가짜 구간 복합</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🎮 보스 전투 방식</div>
+        <div class="card-body">
+          1. 보스 탭에서 도전할 보스 선택<br>
+          2. 게이지로 퍼펙트 히트 → 대미지<br>
+          3. 설정된 클릭 횟수 내에 HP를 0으로<br>
+          4. 성공 시 FP 보상 수령<br><br>
+          퍼펙트 히트: <span class="hl-green">perfectDmg 만큼 피해</span><br>
+          일반 히트: 소량 피해
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📅 보스 도전 제한</div>
+        <div class="card-body">
+          보스는 <span class="highlight">주간 3회</span> 도전 제한이 있습니다.<br><br>
+          • 리셋 주기: <span class="hl-cyan">매주 수요일</span><br>
+          • 도전 횟수: 보스당 주 3회<br>
+          • 도전 시간: <span class="hl-gold">3분 제한</span>
+          <div class="warn" style="margin-top:10px;">
+            <strong>⚠️</strong> 시간 내에 처치하지 못하면 도전 실패입니다. 도전 전 낚시대와 장비를 충분히 강화하세요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ 도감 -->
+  <section class="section" id="dex">
+    <div class="section-header">
+      <span class="section-icon">📖</span>
+      <h2 class="section-title">물고기 도감</h2>
+      <span class="section-tag">FISH DEX</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        낚은 물고기는 도감에 기록됩니다. 특정 수 이상 채우면 <span class="highlight">도감 보상(FP)</span>을 받을 수 있습니다.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📖 도감 시스템</div>
+        <div class="card-body">
+          • 낚은 물고기가 자동으로 도감에 등록<br>
+          • 물고기 종류별 도전 횟수 기록<br>
+          • 일정 수 달성 시 <span class="hl-green">보상 수령 가능</span><br>
+          • 도감 탭에서 현황 확인 가능
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎁 도감 보상</div>
+        <div class="card-body">
+          도감의 특정 마일스톤 달성 시 <span class="highlight">FP 보상</span> 수령<br><br>
+          • 도감 탭에서 보상 수령 버튼 확인<br>
+          • 한 번 수령한 보상은 재수령 불가<br>
+          • 도감을 채울수록 누적 FP 보상 증가
+          <div class="success" style="margin-top:10px;">
+            <strong>✅</strong> 도감 보상은 낚시 상점 아이템을 구매하는 좋은 FP 수급원입니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ 순위 -->
+  <section class="section" id="rank">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <h2 class="section-title">낚시 순위</h2>
+      <span class="section-tag">RANKING</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        누적 <span class="highlight">FP 총량</span>을 기준으로 랭킹이 매겨집니다. 25일마다 순위가 초기화되고 보상이 지급됩니다.
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📊 순위 기준</div>
+        <div class="card-body">
+          • 기준: 해당 사이클에서 획득한 <span class="highlight">총 FP</span><br>
+          • 초기화 주기: <span class="hl-cyan">25일마다</span><br>
+          • 전체 유저 대상 순위<br>
+          • 실시간 반영
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎁 순위 보상</div>
+        <div class="card-body">
+          순위 초기화 후 보상 수령 가능<br><br>
+          🥇 1위 → <span class="highlight">1,000 GP</span><br>
+          🥈 2위 → <span style="color:#94a3b8;font-weight:700;">700 GP</span><br>
+          🥉 3위 → <span style="color:#cd7c3a;font-weight:700;">500 GP</span><br>
+          4~10위 → <span class="hl-purple">300 GP</span><br>
+          11~30위 → <span style="color:var(--sub);font-weight:700;">200 GP</span><br>
+          31위 이하 → 100 GP
+        </div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>⚠️ 주의사항</strong><br>
+      순위 보상 수령 기간을 놓치면 보상을 받을 수 없습니다. 순위 탭에서 정기적으로 확인하세요.
+    </div>
+  </section>
+
+  <!-- ⑪ 일일 퀘스트 -->
+  <section class="section" id="quest">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <h2 class="section-title">일일 퀘스트</h2>
+      <span class="section-tag">DAILY QUEST</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        매일 새로운 퀘스트가 주어집니다. 완료하면 <span class="highlight">FP 보상</span>을 수령할 수 있습니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 퀘스트 유형</div>
+      <table class="gtable">
+        <tr><th>유형</th><th>예시</th><th>보상 FP</th></tr>
+        <tr><td>🏞️ 특정 낚시터 낚시</td><td>강가에서 5회 낚시</td><td>300</td></tr>
+        <tr><td>🏔️ 호수 낚시</td><td>호수에서 8회 낚시</td><td>500</td></tr>
+        <tr><td>🌊 바다 낚시</td><td>바다에서 10회 낚시</td><td>700</td></tr>
+        <tr><td>🌑 심해 낚시</td><td>심해에서 12회 낚시</td><td>1,000</td></tr>
+        <tr><td>🌋 화산 낚시</td><td>화산에서 15회 낚시</td><td>1,500</td></tr>
+        <tr><td>☁️ 하늘 낚시</td><td>하늘에서 20회 낚시</td><td>2,000</td></tr>
+        <tr><td>🌌 우주 낚시</td><td>우주에서 25회 낚시</td><td>3,000</td></tr>
+      </table>
+    </div>
+
+    <div class="tip">
+      <strong>💡 퀘스트 팁</strong><br>
+      일일 퀘스트는 <strong>매일 자정에 초기화</strong>됩니다. 퀘스트 탭에서 당일 과제를 확인하고, 해당 낚시터에서 낚시하면 자동으로 진행됩니다. 보상 수령은 완료 후 퀘스트 탭에서 직접 클릭해야 합니다.
+    </div>
+  </section>
+
+  <!-- ⑫ 고수 팁 -->
+  <section class="section" id="tips">
+    <div class="section-header">
+      <span class="section-icon">💡</span>
+      <h2 class="section-title">고수 팁 & 전략</h2>
+      <span class="section-tag">PRO TIPS</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🚀 빠른 성장 전략</div>
+        <div class="card-body">
+          <ol style="padding-left:16px;line-height:2.2;font-size:13px;">
+            <li>일일 퀘스트 매일 완료 (FP 수급)</li>
+            <li>FP 100 되면 즉시 호수 해금</li>
+            <li>희귀 낚시대 구매 (퍼펙트 존 2배)</li>
+            <li>도감 보상 수시로 수령</li>
+            <li>보스 해금되면 주 3회 필수 도전</li>
+            <li>고급 낚시터 → 고가 물고기 판매</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">💎 수익 극대화 팁</div>
+        <div class="card-body">
+          <ul style="padding-left:16px;line-height:2.2;font-size:13px;">
+            <li>퍼펙트 캐치 → GP +20% 항상 노려야 함</li>
+            <li>상위 낚시터일수록 GP 배율 높음</li>
+            <li>보관함 꽉 채운 후 전체 판매</li>
+            <li>레전더리 낚시대 사용 시 퍼펙트 존 35%</li>
+            <li>번개 니모(FP 30만) 주 3회 = FP 90만</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ 자주 하는 실수 TOP 5</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="background:#ef4444;">1</div>
+          <div class="step-content">
+            <h4>내구도 소진 방치</h4>
+            <p>고급 낚시대 내구도가 소진되면 자동으로 일반 낚시대로 교체됩니다. 상점에서 재구매하세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#ef4444;">2</div>
+          <div class="step-content">
+            <h4>보관함 100칸 방치</h4>
+            <p>보관함이 가득 차면 새 물고기를 보관할 수 없습니다. 주기적으로 판매하거나 정리하세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#ef4444;">3</div>
+          <div class="step-content">
+            <h4>순위 보상 미수령</h4>
+            <p>25일 주기 초기화 후 수령 기간을 놓치면 보상이 사라집니다. 알람을 설정해두세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#ef4444;">4</div>
+          <div class="step-content">
+            <h4>일일 퀘스트 미완료</h4>
+            <p>매일 FP를 꾸준히 모을 수 있는 가장 쉬운 방법입니다. 자정 전에 반드시 완료하세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#ef4444;">5</div>
+          <div class="step-content">
+            <h4>보스 주간 도전 낭비</h4>
+            <p>보스 도전은 주 3회 제한입니다. 준비 없이 도전하면 실패로 도전 횟수를 낭비합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align:center;padding:32px 0;color:var(--dim);font-size:12px;font-family:'Orbitron',sans-serif;letter-spacing:1px;">
+    🎣 GGO PLAY 낚시 게임 가이드 v1.0 · 즐거운 낚시 되세요!
+  </div>
+
+</div>
+
+<script>
+  // TOC 하이라이트
+  const sections = document.querySelectorAll('.section');
+  const tocBtns = document.querySelectorAll('.toc-btn');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        tocBtns.forEach(b=>b.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.toc-btn[href="#${id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, {threshold:0.3});
+
+  sections.forEach(s => observer.observe(s));
+
+  // 부드러운 스크롤
+  tocBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(btn.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+</script>
+</body>
+</html>
